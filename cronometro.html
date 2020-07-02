@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" type="text/css" href="css/style.css" />
+   <title>Timer/Cronometro</title>
+</head>
+<body>
+   <audio id="sound" src="sons/efeito-sonoro.mp3" style="display: none;"></audio>
+
+   <div class="container">
+      <h2>Minutos:</h2>
+      <select id="minutos" name="minutos"></select>
+   </div>
+
+   <div class="container">
+      <h2>Segundos:</h2>
+      <select id="segundos" name="segundos"></select>
+      <br />
+      <br />
+      <button id="comecar">Começar!</button>
+      <div id="display">
+         <h3></h3>
+      </div>
+   </div>
+
+
+<script>
+var display = document.getElementById('display');
+
+var minutos = document.getElementById('minutos');
+var segundos = document.getElementById('segundos');
+
+var comecar = document.getElementById('comecar');
+
+var timerSeg;
+var minutoAtual;
+var minutoObjetivo;
+var segundoAtual;
+var segundoObjetivo;
+
+var interval;
+
+for(var i = 0; i<=60 ; i++){
+   minutos.innerHTML +='<option value"'+i+'">'+i+'</option>';
+}
+
+for(var i = 0; i<=60 ; i++){
+   segundos.innerHTML +='<option value"'+i+'">'+i+'</option>';
+}
+
+comecar.addEventListener('click', function(){
+   minutoAtual = 0;
+   minutoObjetivo = minutos.value;
+   segundoAtual = 0;
+   segundoObjetivo = segundos.value;
+
+   display.childNodes[1].innerHTML = minutoAtual+':'+segundoAtual;
+
+   interval = setInterval(function(){
+      segundoAtual++;
+      if(segundoAtual >= 59 && minutoObjetivo > 0){ 
+         if(minutoAtual <= minutoObjetivo){
+            minutoAtual++;
+            segundoAtual = 0;
+         }else{
+            document.getElementById("sound").play();
+            alert("Acabou!!");
+            minutoAtual = 0;
+            clearInterval(interval);
+         }
+      }else if(segundoAtual >= segundoObjetivo && minutoAtual == minutoObjetivo){
+            document.getElementById("sound").play();
+            alert("Acabou!!");
+            segundoAtual = 0;
+            clearInterval(interval);
+      }
+      
+   display.childNodes[1].innerHTML = minutoAtual+':'+segundoAtual;
+      
+   },1000);
+
+})
+
+</script>
+
+
+
+</body>
+</html>
