@@ -6,7 +6,7 @@
    <link rel="stylesheet" type="text/css" href="css/style.css" />
    <title>Timer/Cronometro</title>
 </head>
-<body>
+<body id="body">
    <audio id="sound" src="sons/efeito-sonoro.mp3" style="display: none;"></audio>
 
    <div class="container">
@@ -40,6 +40,8 @@ var segundoAtual;
 
 var interval;
 
+var body = document.getElementById("body");
+
 for(var i = 0; i<=60 ; i++){
    minutos.innerHTML +='<option value"'+i+'">'+i+'</option>';
 }
@@ -49,6 +51,7 @@ for(var i = 0; i<=60 ; i++){
 }
 
 comecar.addEventListener('click', function(){
+   body.style.backgroundColor = "red";
    minutoAtual = minutos.value;
    segundoAtual = segundos.value;
 
@@ -61,8 +64,8 @@ comecar.addEventListener('click', function(){
             minutoAtual--;
             segundoAtual = 59;
          }else{
+            body.style.backgroundColor = "green";
             document.getElementById("sound").play();
-            alert("Acabou!!");
             clearInterval(interval);
          }
       }
